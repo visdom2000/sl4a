@@ -1,10 +1,10 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
@@ -19,8 +19,8 @@ dependencies {
 }
 
 android {
-    buildToolsVersion "21.1.2"
-    compileSdkVersion 21
+    buildToolsVersion "25.0.3"
+    compileSdkVersion 25
 
     sourceSets {
         main {
@@ -40,6 +40,8 @@ android {
     defaultConfig {
         minSdkVersion 4
         targetSdkVersion 4
+        versionCode 611
+        versionName '6.1.1'
     }
     productFlavors {
     }
@@ -48,5 +50,17 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFile
+            if (file != null && file.name.endsWith('.apk')) {
+                def newName = file.name.replace(
+                    "ScriptingLayerForAndroid",
+                    "rhino-r" + defaultConfig.versionName)
+                output.outputFile = new File(file.parent, newName)
+            }
+        }
     }
 }
