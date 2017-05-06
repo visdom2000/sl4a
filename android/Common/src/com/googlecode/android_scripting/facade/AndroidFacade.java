@@ -41,6 +41,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.googlecode.android_scripting.BaseApplication;
+import com.googlecode.android_scripting.Compat;
 import com.googlecode.android_scripting.FileUtils;
 import com.googlecode.android_scripting.FutureActivityTaskExecutor;
 import com.googlecode.android_scripting.Log;
@@ -587,11 +588,13 @@ public class AndroidFacade extends RpcReceiver {
   @Rpc(description = "Displays a notification that will be canceled when the user clicks on it.")
   public void notify(@RpcParameter(name = "title", description = "title") String title,
       @RpcParameter(name = "message") String message) {
-    Notification notification =
-        new Notification(mResources.getLogo48(), message, System.currentTimeMillis());
     // This contentIntent is a noop.
     PendingIntent contentIntent = PendingIntent.getService(mService, 0, new Intent(), 0);
-    notification.setLatestEventInfo(mService, title, message, contentIntent);
+        Notification notification = Compat.getNotification(
+            mService, mResources.getLogo48(),
+            title, message, System.currentTimeMillis(),
+            contentIntent
+        );
     notification.flags = Notification.FLAG_AUTO_CANCEL;
 
     // Get a unique notification id from the application.

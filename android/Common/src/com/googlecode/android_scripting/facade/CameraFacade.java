@@ -41,7 +41,7 @@ import com.googlecode.android_scripting.rpc.Rpc;
 import com.googlecode.android_scripting.rpc.RpcDefault;
 import com.googlecode.android_scripting.rpc.RpcParameter;
 
-import org.apache.http.MethodNotSupportedException;
+// import org.apache.http.MethodNotSupportedException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
