@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) Shimoda <kuri65536 _at_ hotmail _dot_ com>
  * Copyright (C) 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -19,11 +20,14 @@ package com.googlecode.android_scripting.rpc;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.googlecode.android_scripting.Analytics;
 import com.googlecode.android_scripting.facade.AndroidFacade;
 import com.googlecode.android_scripting.jsonrpc.RpcReceiver;
 import com.googlecode.android_scripting.jsonrpc.RpcReceiverManager;
 import com.googlecode.android_scripting.util.VisibleForTesting;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -35,10 +39,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * An adapter that wraps {@code Method}.
@@ -82,9 +82,6 @@ public final class MethodDescriptor {
    * @throws Throwable
    */
   public Object invoke(RpcReceiverManager manager, final JSONArray parameters) throws Throwable {
-    // Issue track call first in case of failure.
-    Analytics.track("api", getName());
-
     final Type[] parameterTypes = getGenericParameterTypes();
     final Object[] args = new Object[parameterTypes.length];
     final Annotation annotations[][] = getParameterAnnotations();
