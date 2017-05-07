@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         minSdkVersion 4
-        targetSdkVersion 21
+        targetSdkVersion 4
     }
 
     sourceSets {

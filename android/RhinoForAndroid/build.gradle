@@ -1,8 +1,15 @@
+task genURL << {
+    def root = System.getProperty("user.dir")
+    exec {
+        executable "python"
+        args "${root}/../../tools/gitbase.py", "${root}"
+    }
+}
+
 buildscript {
     repositories {
         jcenter()
     }
-
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
     }
@@ -57,10 +64,13 @@ android {
             def file = output.outputFile
             if (file != null && file.name.endsWith('.apk')) {
                 def newName = file.name.replace(
-                    "ScriptingLayerForAndroid",
+                    "RhinoForAndroid",
                     "rhino-r" + defaultConfig.versionName)
                 output.outputFile = new File(file.parent, newName)
             }
         }
     }
 }
+
+preBuild.dependsOn genURL
+

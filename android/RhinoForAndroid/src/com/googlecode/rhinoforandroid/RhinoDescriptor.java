@@ -33,6 +33,11 @@ public class RhinoDescriptor extends Sl4aHostedInterpreter {
   private static final String RHINO_JAR = "rhino1_7R2-dex.jar";
   private static final String ENV_DATA = "ANDROID_DATA";
 
+    @Override
+    public String getBaseInstallUrl() {
+        return RhinoUrls.URL_BIN;
+    }
+
   public String getExtension() {
     return ".js";
   }

@@ -32,15 +32,12 @@ import java.util.Map;
  */
 public abstract class Sl4aHostedInterpreter implements InterpreterDescriptor {
 
-  public static final String BASE_INSTALL_URL = "http://android-scripting.googlecode.com/files/";
   public static final String DALVIKVM = "/system/bin/dalvikvm";
 
   // TODO(damonkohler): Remove getVersion() and pull these three version methods up in to the base
   // class.
 
-  public String getBaseInstallUrl() {
-    return BASE_INSTALL_URL;
-  }
+    abstract public String getBaseInstallUrl();
 
   public int getInterpreterVersion() {
     return getVersion();
